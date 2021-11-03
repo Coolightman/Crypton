@@ -14,7 +14,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         return mainRepository.getCoinPriceInfoList()
     }
 
-    fun loadData() {
-        mainRepository.loadData()
+    fun getCoinPriceInfo(coinName: String): LiveData<CoinPriceInfo> {
+        return mainRepository.getCoinPriceInfo(coinName)
     }
 }

@@ -11,7 +11,7 @@ import com.coolightman.crypton.model.db.dao.CoinPriceInfoDao
 
 
 @Database(
-    version = 2,
+    version = 3,
     entities = [CoinPriceInfo::class]
 )
 @TypeConverters(Converters::class)

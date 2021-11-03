@@ -1,16 +1,21 @@
 package com.coolightman.crypton.view.activity
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.coolightman.crypton.databinding.ActivityMainBinding
+import com.coolightman.crypton.model.data.CoinPriceInfo
+import com.coolightman.crypton.view.adapter.CoinsPriceAdapter
 import com.coolightman.crypton.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var coinsPriceAdapter: CoinsPriceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,7 +26,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
         createObservers()
-        mainViewModel.loadData()
+        createAdapter()
     }
 
     private fun createObservers() {
@@ -32,9 +37,20 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getCoinPriceInfoList().observe(this) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    mainBinding.textViewHello.text = it.toString()
+                    coinsPriceAdapter.setPrices(it)
                 }
             }
         }
+    }
+
+    private fun createAdapter() {
+        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
+        mainBinding.recyclerViewCoinsPrice.layoutManager = layoutManager
+        coinsPriceAdapter = CoinsPriceAdapter { onClickCoin(it) }
+        mainBinding.recyclerViewCoinsPrice.adapter = coinsPriceAdapter
+    }
+
+    private fun onClickCoin(it: CoinPriceInfo) {
+        Toast.makeText(this, "Click ${it.FROMSYMBOL}", Toast.LENGTH_SHORT).show()
     }
 }
