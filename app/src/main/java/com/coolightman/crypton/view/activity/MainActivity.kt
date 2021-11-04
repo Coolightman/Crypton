@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createAdapter() {
-        coinsPriceAdapter = CoinsPriceAdapter { onClickCoin(it) }
+        coinsPriceAdapter = CoinsPriceAdapter(this) { onClickCoin(it) }
         mainBinding.recyclerViewCoinsPrice.adapter = coinsPriceAdapter
     }
 

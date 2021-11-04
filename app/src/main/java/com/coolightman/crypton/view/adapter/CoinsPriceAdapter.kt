@@ -1,17 +1,25 @@
 package com.coolightman.crypton.view.adapter
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
 import com.coolightman.crypton.model.data.CoinPriceInfo
 
-class CoinsPriceAdapter(val listener: (CoinPriceInfo) -> Unit) :
+class CoinsPriceAdapter(
+    private val context: Context,
+    private val listener: (CoinPriceInfo) -> Unit,
+) :
     RecyclerView.Adapter<CoinsPriceAdapter.CoinsPriceViewHolder>() {
 
-    private var prices = listOf<CoinPriceInfo>()
+    private var coins = listOf<CoinPriceInfo>()
+
+    inner class CoinsPriceViewHolder(val binding: CoinPriceItemBinding) :
+        RecyclerView.ViewHolder(binding.root)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsPriceViewHolder {
         val binding = CoinPriceItemBinding
@@ -20,31 +28,29 @@ class CoinsPriceAdapter(val listener: (CoinPriceInfo) -> Unit) :
     }
 
     override fun onBindViewHolder(holder: CoinsPriceViewHolder, position: Int) {
-        val price = prices[position]
-        val titleText = "${price.fromSymbol} / ${price.toSymbol}"
-        val lastUpdate = "Last update: ${price.getFormattedTime()}"
+        val coin = coins[position]
+        val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
+        val currentPrice = coin.price.toString()
+        val lastUpdate = "${context.resources.getString(R.string.last_update)} ${coin.getFormattedTime()}"
 
         with(holder) {
             binding.textViewCoinPriceTitle.text = titleText
-            binding.textViewPriceNow.text = price.price.toString()
+            binding.textViewPriceNow.text = currentPrice
             binding.textViewLastUpdate.text = lastUpdate
 
             Glide.with(this.itemView.context)
-                .load(price.getImageFullUrl())
+                .load(coin.getImageFullUrl())
                 .into(binding.imageViewCoinLogo)
 
-            holder.itemView.setOnClickListener { listener(price) }
+            itemView.setOnClickListener { listener(coin) }
         }
     }
 
-    override fun getItemCount() = prices.size
-
-    inner class CoinsPriceViewHolder(val binding: CoinPriceItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    override fun getItemCount() = coins.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrices(prices: List<CoinPriceInfo>) {
-        this.prices = prices
+    fun setPrices(coins: List<CoinPriceInfo>) {
+        this.coins = coins
         notifyDataSetChanged()
     }
 }
