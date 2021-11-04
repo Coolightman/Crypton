@@ -16,6 +16,6 @@ interface CoinPriceInfoDao {
     @Query("select * from coinpriceinfo")
     fun getCoinPriceInfoList(): LiveData<List<CoinPriceInfo>>
 
-    @Query("select * from coinpriceinfo where FROMSYMBOL = :coinName")
+    @Query("select * from coinpriceinfo where fromSymbol = :coinName")
     fun getCoinPriceInfo(coinName: String): LiveData<CoinPriceInfo>
 }

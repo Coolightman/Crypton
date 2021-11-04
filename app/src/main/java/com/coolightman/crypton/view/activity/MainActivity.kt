@@ -44,13 +44,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun createAdapter() {
-        val layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
-        mainBinding.recyclerViewCoinsPrice.layoutManager = layoutManager
         coinsPriceAdapter = CoinsPriceAdapter { onClickCoin(it) }
         mainBinding.recyclerViewCoinsPrice.adapter = coinsPriceAdapter
     }
 
     private fun onClickCoin(it: CoinPriceInfo) {
-        Toast.makeText(this, "Click ${it.FROMSYMBOL}", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Click ${it.fromSymbol}", Toast.LENGTH_SHORT).show()
     }
 }
