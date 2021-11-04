@@ -10,24 +10,24 @@ import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
 import com.coolightman.crypton.model.data.CoinPriceInfo
 
-class CoinsPriceAdapter(
+class CoinPriceAdapter(
     private val context: Context,
     private val listener: (CoinPriceInfo) -> Unit,
 ) :
-    RecyclerView.Adapter<CoinsPriceAdapter.CoinsPriceViewHolder>() {
+    RecyclerView.Adapter<CoinPriceAdapter.CoinPriceViewHolder>() {
 
     private var coins = listOf<CoinPriceInfo>()
 
-    inner class CoinsPriceViewHolder(val binding: CoinPriceItemBinding) :
+    inner class CoinPriceViewHolder(val binding: CoinPriceItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinsPriceViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinPriceViewHolder {
         val binding = CoinPriceItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CoinsPriceViewHolder(binding)
+        return CoinPriceViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CoinsPriceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CoinPriceViewHolder, position: Int) {
         val coin = coins[position]
         val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
         val currentPrice = coin.price.toString()
