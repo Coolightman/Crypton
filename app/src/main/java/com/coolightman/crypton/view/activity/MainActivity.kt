@@ -1,7 +1,6 @@
 package com.coolightman.crypton.view.activity
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
@@ -13,14 +12,14 @@ import com.coolightman.crypton.viewmodel.MainViewModel
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
-    private lateinit var mainBinding: ActivityMainBinding
+    private lateinit var binding: ActivityMainBinding
     private lateinit var coinPriceAdapter: CoinPriceAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        mainBinding = ActivityMainBinding.inflate(layoutInflater)
-        val view = mainBinding.root
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        val view = binding.root
         setContentView(view)
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
@@ -44,10 +43,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun createAdapter() {
         coinPriceAdapter = CoinPriceAdapter(this) { onClickCoin(it) }
-        mainBinding.recyclerViewCoinsPrice.adapter = coinPriceAdapter
+        binding.recyclerViewCoinPrice.adapter = coinPriceAdapter
     }
 
-    private fun onClickCoin(it: CoinPriceInfo) {
-        Toast.makeText(this, "Click ${it.fromSymbol}", Toast.LENGTH_SHORT).show()
+    private fun onClickCoin(coin: CoinPriceInfo) {
+        val intent = CoinDetailActivity.newIntent(this, coin.fromSymbol)
+        startActivity(intent)
     }
 }
