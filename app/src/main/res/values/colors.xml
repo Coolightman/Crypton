@@ -8,4 +8,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="firm_color">#c74c5c</color>
+    <color name="pct_up_color">#4CAF50</color>
+    <color name="pct_down_color">#F44336</color>
+    <color name="pct_zero_color">#808080</color>
+    <color name="shadowed_text">#806E6E6E</color>
 </resources>

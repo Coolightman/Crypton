@@ -15,6 +15,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var coinPriceAdapter: CoinPriceAdapter
 
+    companion object {
+        val coinsNumber = 25
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
@@ -35,7 +39,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getCoinPriceInfoList().observe(this) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    coinPriceAdapter.setPrices(it)
+                    val list = it.takeLast(coinsNumber)
+                    coinPriceAdapter.setPrices(list)
                 }
             }
         }

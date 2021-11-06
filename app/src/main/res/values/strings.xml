@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Crypton</string>
-    <string name="last_update">Last update:</string>
+    <string name="last_update">Updated:</string>
+    <string name="per_day">per day</string>
 </resources>

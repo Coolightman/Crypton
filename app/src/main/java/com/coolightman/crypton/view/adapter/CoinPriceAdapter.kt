@@ -9,6 +9,7 @@ import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
 import com.coolightman.crypton.model.data.CoinPriceInfo
+import com.coolightman.crypton.utils.FormatValue
 
 class CoinPriceAdapter(
     private val context: Context,
@@ -30,19 +31,37 @@ class CoinPriceAdapter(
     override fun onBindViewHolder(holder: CoinPriceViewHolder, position: Int) {
         val coin = coins[position]
         val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
-        val currentPrice = coin.price.toString()
-        val lastUpdate = "${context.resources.getString(R.string.last_update)} ${coin.getFormattedTime()}"
+        val lastUpdate =
+            "${context.resources.getString(R.string.last_update)} ${coin.getFormattedTime()}"
 
         with(holder) {
             binding.textViewCoinPriceTitle.text = titleText
-            binding.textViewPriceNow.text = currentPrice
+            setPrice(holder, coin.price)
             binding.textViewLastUpdate.text = lastUpdate
+            setPctDay(holder, coin.changePctDay)
 
             Glide.with(this.itemView.context)
                 .load(coin.getImageFullUrl())
                 .into(binding.imageViewCoinLogo)
 
             itemView.setOnClickListener { listener(coin) }
+        }
+    }
+
+    private fun setPrice(holder: CoinPriceViewHolder, price: Double?) {
+        price?.let {
+            val currentPrice = FormatValue.roundValue(price)
+            holder.binding.textViewPriceNow.text = currentPrice
+        }
+    }
+
+    private fun setPctDay(holder: CoinPriceViewHolder, changePctDay: Double?) {
+        changePctDay?.let {
+            val pair = FormatValue.formatPct(context, it)
+            val pctForDay = pair.first
+            val color = pair.second
+            holder.binding.textViewChangePctDay.text = pctForDay
+            holder.binding.textViewChangePctDay.setTextColor(color)
         }
     }
 

@@ -8,7 +8,7 @@ import com.coolightman.crypton.model.repository.MainRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val mainRepository = MainRepository(application)
+    private val mainRepository = MainRepository.getInstance(application)
 
     fun getCoinPriceInfoList(): LiveData<List<CoinPriceInfo>> {
         return mainRepository.getCoinPriceInfoList()

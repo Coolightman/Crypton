@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import com.coolightman.crypton.model.data.CoinPriceInfo
 import com.coolightman.crypton.model.db.CryptoDatabase
 import com.coolightman.crypton.model.network.ApiFactory
+import com.coolightman.crypton.view.activity.MainActivity.Companion.coinsNumber
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
@@ -24,10 +25,22 @@ class MainRepository(application: Application) {
     }
 
     companion object {
-        private const val LIMIT = 20
+        private val limit = coinsNumber
         private const val CURRENCY = "USD"
         private const val DELAY_TIME = 10 * 1000L
         private const val REPEAT_NUMBER = 1000
+
+        private var repository: MainRepository? = null
+        private val LOCK = Any()
+
+        fun getInstance(application: Application): MainRepository {
+            synchronized(LOCK) {
+                repository?.let { return it }
+                val instance = MainRepository(application)
+                repository = instance
+                return instance
+            }
+        }
     }
 
     init {
@@ -56,7 +69,7 @@ class MainRepository(application: Application) {
     }
 
     private suspend fun doLoad() {
-        val response = apiService.loadCoinInfoListData(LIMIT, CURRENCY)
+        val response = apiService.loadCoinInfoListData(limit, CURRENCY)
         if (response.isSuccessful) {
             val body = response.body()
             body?.let {

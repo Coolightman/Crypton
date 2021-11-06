@@ -3,8 +3,10 @@ package com.coolightman.crypton.view.activity
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
 import com.coolightman.crypton.viewmodel.MainViewModel
@@ -19,7 +21,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
         fun newIntent(context: Context, coinName: String): Intent {
             val intent = Intent(context, CoinDetailActivity::class.java)
-            intent.putExtra("EXTRA_COIN_NAME", coinName)
+            intent.putExtra(EXTRA_COIN_NAME, coinName)
             return intent
         }
     }
@@ -44,8 +46,17 @@ class CoinDetailActivity : AppCompatActivity() {
     private fun createObserver(coinName: String) {
         mainViewModel.getCoinPriceInfo(coinName).observe(this) {
             it?.let {
-
+                Log.e("coinInfo", it.toString())
+                setCoinLogo(it.getImageFullUrl())
+                binding.textViewFromSymbol.text = it.fromSymbol
+                binding.textViewToSymbol.text = it.toSymbol
             }
         }
+    }
+
+    private fun setCoinLogo(imageFullUrl: String) {
+        Glide.with(this)
+            .load(imageFullUrl)
+            .into(binding.imageViewCoinLogo)
     }
 }
