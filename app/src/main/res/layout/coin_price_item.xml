@@ -44,8 +44,8 @@
             android:gravity="center"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="@+id/textViewPriceNow"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/textViewCoinPriceTitle"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineForPct"
+            app:layout_constraintStart_toStartOf="@+id/guidelineForPct"
             app:layout_constraintTop_toTopOf="@+id/textViewCoinPriceTitle"
             tools:text="4.5%" />
 
@@ -84,6 +84,13 @@
             tools:ignore="SmallSp"
             tools:text="Updated 19:54:05"
             tools:textColor="@color/black" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineForPct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".85" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

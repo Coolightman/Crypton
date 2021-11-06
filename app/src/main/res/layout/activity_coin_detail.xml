@@ -1,48 +1,586 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="8dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.activity.CoinDetailActivity">
+    android:layout_height="match_parent">
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imageViewCoinLogo"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@drawable/ic_launcher_foreground" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewFromSymbol"
-        android:layout_width="wrap_content"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="BTC" />
+        android:padding="8dp"
+        tools:context=".view.activity.CoinDetailActivity">
 
-    <View
-        android:layout_width="60dp"
-        android:layout_height="0.5dp"
-        android:background="@color/firm_color"
-        app:layout_constraintBottom_toTopOf="@id/textViewToSymbol"
-        app:layout_constraintEnd_toEndOf="@id/textViewFromSymbol"
-        app:layout_constraintStart_toStartOf="@id/textViewFromSymbol"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFromSymbol" />
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imageViewCoinLogo"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_launcher_foreground" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/textViewToSymbol"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewFromSymbol"
-        tools:text="USD" />
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewFromSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="BTC" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <View
+            android:layout_width="60dp"
+            android:layout_height="0.5dp"
+            android:background="@color/firm_color"
+            app:layout_constraintBottom_toTopOf="@id/textViewToSymbol"
+            app:layout_constraintEnd_toEndOf="@id/textViewFromSymbol"
+            app:layout_constraintStart_toStartOf="@id/textViewFromSymbol"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFromSymbol" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewToSymbol"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewFromSymbol"
+            tools:text="USD" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewCurrentPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/textViewToSymbol"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textViewFromSymbol"
+            app:layout_constraintTop_toTopOf="@+id/textViewFromSymbol"
+            tools:text="500" />
+
+        <View
+            android:id="@+id/ViewTopLine"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="8dp"
+            android:background="@color/firm_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewCoinLogo" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/hour"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ViewTopLine" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineVert50"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent=".5" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourL"
+            tools:text="500" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourChangePct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourL"
+            tools:text="+5.03%" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourOpenL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/open"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourChange" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewHourOpenL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourHighL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/high"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourOpenL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewHourHighL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourLowL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/low"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourHighL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewHourLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewHourLowL"
+            tools:text="58000" />
+
+        <View
+            android:id="@+id/ViewLineHourBottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/firm_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewHourLowL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/day"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ViewLineHourBottom" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayChange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayL"
+            tools:text="500" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayChangePct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayL"
+            tools:text="+5.03%" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayOpenL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/open"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayChange" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayOpen"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewDayOpenL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayHighL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/high"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayOpenL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayHigh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewDayHighL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayLowL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/low"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayHighL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewDayLow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewDayLowL"
+            tools:text="58000" />
+
+        <View
+            android:id="@+id/ViewLineDayBottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/firm_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewDayLowL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/_24_hours"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ViewLineDayBottom" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24Change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24L"
+            tools:text="500" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24ChangePct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toBottomOf="@+id/textView24L"
+            tools:text="+5.03%" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24OpenL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/open"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24Change" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24Open"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textView24OpenL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24HighL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/high"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24OpenL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24High"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textView24HighL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24LowL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/low"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24HighL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textView24Low"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textView24LowL"
+            tools:text="58000" />
+
+        <View
+            android:id="@+id/ViewLine24Bottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/firm_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView24LowL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/volume"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ViewLine24Bottom" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeFromL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineVert50"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeL"
+            tools:text="BTC" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeToL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeL"
+            tools:text="USD" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeHourL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:text="@string/hour"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeFromL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeHour"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewVolumeFromL"
+            app:layout_constraintStart_toStartOf="@+id/textViewVolumeFromL"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolumeHourL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeHourTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolumeHourL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeDayL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/day"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeHourL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeDay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/day"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewVolumeFromL"
+            app:layout_constraintStart_toStartOf="@+id/textViewVolumeFromL"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolumeDayL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeDayTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolumeDayL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolume24L"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/_24"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeDayL" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolume24"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewVolumeFromL"
+            app:layout_constraintStart_toStartOf="@+id/textViewVolumeFromL"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolume24L"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolume24To"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/day"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolume24L"
+            tools:text="58000" />
+
+        <View
+            android:id="@+id/ViewLineVolumeBottom"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/firm_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolume24L" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeLastL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/last"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ViewLineVolumeBottom" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeLast"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="@+id/textViewVolumeFromL"
+            app:layout_constraintStart_toStartOf="@+id/textViewVolumeFromL"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeLastL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeLastTo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/guidelineVert50"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeLastL"
+            tools:text="58000" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeLastMarketL"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/market"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewVolumeLast" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewVolumeLastMarket"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/textViewVolumeLastMarketL"
+            app:layout_constraintTop_toTopOf="@+id/textViewVolumeLastMarketL"
+            tools:text="binance" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

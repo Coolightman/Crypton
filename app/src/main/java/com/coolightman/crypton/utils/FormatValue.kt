@@ -7,22 +7,41 @@ import com.coolightman.crypton.R
 object FormatValue {
 
     fun formatPct(context: Context, double: Double): Pair<String, Int> {
-        val pctForDay: String
+        val pct: String
         val color = when {
             double > 0 -> {
-                pctForDay = "+${roundPct(double)}%"
+                pct = "+${roundPct(double)}%"
                 ContextCompat.getColor(context, R.color.pct_up_color)
             }
             double < 0 -> {
-                pctForDay = "${roundPct(double)}%"
+                pct = "${roundPct(double)}%"
                 ContextCompat.getColor(context, R.color.pct_down_color)
             }
             else -> {
-                pctForDay = "${roundPct(double)}%"
+                pct = "${roundPct(double)}%"
                 ContextCompat.getColor(context, R.color.pct_zero_color)
             }
         }
-        return Pair(pctForDay, color)
+        return Pair(pct, color)
+    }
+
+    fun formatValueChange(context: Context, double: Double): Pair<String, Int> {
+        val value: String
+        val color = when {
+            double > 0 -> {
+                value = "+${roundValue(double)}"
+                ContextCompat.getColor(context, R.color.pct_up_color)
+            }
+            double < 0 -> {
+                value = roundValue(double)
+                ContextCompat.getColor(context, R.color.pct_down_color)
+            }
+            else -> {
+                value = roundValue(double)
+                ContextCompat.getColor(context, R.color.pct_zero_color)
+            }
+        }
+        return Pair(value, color)
     }
 
     private fun roundPct(double: Double): String {
