@@ -14,7 +14,6 @@ import com.coolightman.crypton.model.db.dao.CoinPriceInfoDao
     version = 8,
     entities = [CoinPriceInfo::class]
 )
-@TypeConverters(Converters::class)
 abstract class CryptoDatabase : RoomDatabase() {
     abstract fun coinPriceInfoDao(): CoinPriceInfoDao
 
