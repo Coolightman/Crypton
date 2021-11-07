@@ -5,7 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import com.coolightman.crypton.model.data.CoinPriceInfo
 import com.coolightman.crypton.model.db.CryptoDatabase
-import com.coolightman.crypton.model.network.ApiFactory
+import com.coolightman.crypton.model.network.ApiClient
 import com.coolightman.crypton.view.activity.MainActivity.Companion.coinsNumber
 import com.google.gson.Gson
 import com.google.gson.JsonObject
@@ -13,7 +13,7 @@ import kotlinx.coroutines.*
 
 class MainRepository(application: Application) {
 
-    private val apiService = ApiFactory.getService()
+    private val apiService = ApiClient.getService()
     private val database = CryptoDatabase.getDb(application)
 
     private val coroutineContextIO = Job() + Dispatchers.IO

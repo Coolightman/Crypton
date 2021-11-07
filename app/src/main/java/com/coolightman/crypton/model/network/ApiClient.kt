@@ -3,7 +3,7 @@ package com.coolightman.crypton.model.network
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-object ApiFactory {
+object ApiClient {
     private var retrofit: Retrofit? = null
     private const val API_URL = "https://min-api.cryptocompare.com/data/"
     const val LOGO_URL_ROOT = "https://www.cryptocompare.com"
