@@ -49,11 +49,15 @@ object FormatValue {
     }
 
     fun roundValue(double: Double): String {
+        if (double in -0.000001..0.000001) return "too less"
+
         val strings = double.toString().split(".")
-        return if (strings[1].length > 5) {
+        val cuted = if (strings[1].length > 5) {
             String.format("%.6f".format(double))
         } else {
             double.toString()
         }
+
+        return cuted.replace("0*$".toRegex(), "")
     }
 }

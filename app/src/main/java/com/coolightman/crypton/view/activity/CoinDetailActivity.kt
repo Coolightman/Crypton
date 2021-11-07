@@ -90,13 +90,15 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setLastVolume(lastVolume: Double?) {
         lastVolume?.let {
-            binding.textViewVolumeLast.text = it.toString()
+            val res = FormatValue.roundValue(it)
+            binding.textViewVolumeLast.text = res
         }
     }
 
     private fun setLastVolumeTo(lastVolumeTo: Double?) {
         lastVolumeTo?.let {
-            binding.textViewVolumeLastTo.text = it.toString()
+            val res = FormatValue.roundValue(it)
+            binding.textViewVolumeLastTo.text = res
         }
     }
 
