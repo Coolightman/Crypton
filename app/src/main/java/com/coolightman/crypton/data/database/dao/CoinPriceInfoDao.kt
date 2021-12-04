@@ -5,7 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy.REPLACE
 import androidx.room.Query
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
+import com.coolightman.crypton.data.models.CoinPriceInfo
 
 @Dao
 interface CoinPriceInfoDao {

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
+import com.coolightman.crypton.data.models.CoinPriceInfo
 import com.coolightman.crypton.data.database.dao.CoinPriceInfoDao
 
 

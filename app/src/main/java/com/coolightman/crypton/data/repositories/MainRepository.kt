@@ -1,12 +1,12 @@
-package com.coolightman.crypton.data.repository
+package com.coolightman.crypton.data.repositories
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
 import com.coolightman.crypton.data.database.CryptoDatabase
 import com.coolightman.crypton.data.network.ApiClient
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
-import com.coolightman.crypton.presentation.activity.MainActivity.Companion.NUMBER_OF_COINS
+import com.coolightman.crypton.data.models.CoinPriceInfo
+import com.coolightman.crypton.presentation.activities.MainActivity.Companion.NUMBER_OF_COINS
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*

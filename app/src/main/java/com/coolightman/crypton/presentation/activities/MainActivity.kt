@@ -1,13 +1,13 @@
-package com.coolightman.crypton.presentation.activity
+package com.coolightman.crypton.presentation.activities
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.coolightman.crypton.databinding.ActivityMainBinding
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
-import com.coolightman.crypton.presentation.adapter.CoinPriceAdapter
-import com.coolightman.crypton.presentation.viewmodel.MainViewModel
+import com.coolightman.crypton.data.models.CoinPriceInfo
+import com.coolightman.crypton.presentation.adapters.CoinPriceAdapter
+import com.coolightman.crypton.presentation.viewmodels.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 

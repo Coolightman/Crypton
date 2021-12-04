@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="8dp"
-        tools:context=".presentation.activity.CoinDetailActivity">
+        tools:context=".presentation.activities.CoinDetailActivity">
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageViewCoinLogo"

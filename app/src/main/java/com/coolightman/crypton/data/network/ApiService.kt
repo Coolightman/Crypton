@@ -1,7 +1,7 @@
 package com.coolightman.crypton.data.network
 
-import com.coolightman.crypton.domain.entity.CoinInfoList
-import com.coolightman.crypton.domain.entity.CoinPriceRawData
+import com.coolightman.crypton.data.models.CoinInfoList
+import com.coolightman.crypton.data.models.CoinPriceRawData
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Headers

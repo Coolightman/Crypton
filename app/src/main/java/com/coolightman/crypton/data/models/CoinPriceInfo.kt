@@ -1,4 +1,4 @@
-package com.coolightman.crypton.domain.entity
+package com.coolightman.crypton.data.models
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

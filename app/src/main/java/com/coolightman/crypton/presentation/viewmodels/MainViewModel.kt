@@ -1,10 +1,10 @@
-package com.coolightman.crypton.presentation.viewmodel
+package com.coolightman.crypton.presentation.viewmodels
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
-import com.coolightman.crypton.data.repository.MainRepository
+import com.coolightman.crypton.data.models.CoinPriceInfo
+import com.coolightman.crypton.data.repositories.MainRepository
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
