@@ -1,11 +1,11 @@
-package com.coolightman.crypton.data.db
+package com.coolightman.crypton.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.coolightman.crypton.domain.entity.CoinPriceInfo
-import com.coolightman.crypton.data.db.dao.CoinPriceInfoDao
+import com.coolightman.crypton.data.database.dao.CoinPriceInfoDao
 
 
 @Database(
@@ -13,7 +13,6 @@ import com.coolightman.crypton.data.db.dao.CoinPriceInfoDao
     entities = [CoinPriceInfo::class]
 )
 abstract class CryptoDatabase : RoomDatabase() {
-    abstract fun coinPriceInfoDao(): CoinPriceInfoDao
 
     companion object {
         private var db: CryptoDatabase? = null
@@ -33,4 +32,6 @@ abstract class CryptoDatabase : RoomDatabase() {
             }
         }
     }
+
+    abstract fun coinPriceInfoDao(): CoinPriceInfoDao
 }

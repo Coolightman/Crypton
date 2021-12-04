@@ -3,10 +3,10 @@ package com.coolightman.crypton.data.repository
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.coolightman.crypton.domain.entity.CoinPriceInfo
-import com.coolightman.crypton.data.db.CryptoDatabase
+import com.coolightman.crypton.data.database.CryptoDatabase
 import com.coolightman.crypton.data.network.ApiClient
-import com.coolightman.crypton.presentation.activity.MainActivity.Companion.coinsNumber
+import com.coolightman.crypton.domain.entity.CoinPriceInfo
+import com.coolightman.crypton.presentation.activity.MainActivity.Companion.NUMBER_OF_COINS
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
@@ -17,15 +17,12 @@ class MainRepository(application: Application) {
     private val database = CryptoDatabase.getDb(application)
 
     private val coroutineContextIO = Job() + Dispatchers.IO
-    private val coroutineContextMain = Job() + Dispatchers.Main
     private val scopeIO = CoroutineScope(coroutineContextIO)
-    private val scopeMain = CoroutineScope(coroutineContextMain)
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("CoroutineException", "throw $throwable")
     }
 
     companion object {
-        private val limit = coinsNumber
         private const val CURRENCY = "USD"
         private const val DELAY_TIME = 10 * 1000L
         private const val REPEAT_NUMBER = 1000
@@ -69,7 +66,7 @@ class MainRepository(application: Application) {
     }
 
     private suspend fun doLoad() {
-        val response = apiService.loadCoinInfoListData(limit, CURRENCY)
+        val response = apiService.loadCoinInfoListData(NUMBER_OF_COINS, CURRENCY)
         if (response.isSuccessful) {
             val body = response.body()
             body?.let {

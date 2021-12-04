@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var coinPriceAdapter: CoinPriceAdapter
 
     companion object {
-        val coinsNumber = 25
+        const val NUMBER_OF_COINS = 25
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +39,7 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.getCoinPriceInfoList().observe(this) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    val list = it.takeLast(coinsNumber)
+                    val list = it.takeLast(NUMBER_OF_COINS)
                     coinPriceAdapter.setPrices(list)
                 }
             }

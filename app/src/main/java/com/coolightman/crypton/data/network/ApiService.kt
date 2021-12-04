@@ -31,7 +31,7 @@ interface ApiService {
     @Headers(HEADER_KEY)
     @GET("pricemultifull")
     suspend fun loadFullPriceList(
-        @Query(PARAM_CRYPTOS)cryptos: String,
+        @Query(PARAM_CRYPTOS) cryptos: String,
         @Query(PARAM_CURRENCIES) currencies: String
     ): Response<CoinPriceRawData>
 
