@@ -1,4 +1,4 @@
-package com.coolightman.crypton.view.activity
+package com.coolightman.crypton.presentation.activity
 
 import android.content.Context
 import android.content.Intent
@@ -7,10 +7,9 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
-import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
 import com.coolightman.crypton.utils.FormatValue
-import com.coolightman.crypton.viewmodel.MainViewModel
+import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -29,8 +28,6 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_coin_detail)
-
         binding = ActivityCoinDetailBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)

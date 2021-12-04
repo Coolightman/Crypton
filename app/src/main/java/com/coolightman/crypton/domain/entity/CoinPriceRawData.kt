@@ -1,4 +1,4 @@
-package com.coolightman.crypton.model.data
+package com.coolightman.crypton.domain.entity
 
 import com.google.gson.JsonObject
 import com.google.gson.annotations.SerializedName

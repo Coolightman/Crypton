@@ -1,4 +1,4 @@
-package com.coolightman.crypton.model.network
+package com.coolightman.crypton.data.network
 
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

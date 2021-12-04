@@ -1,12 +1,12 @@
-package com.coolightman.crypton.model.repository
+package com.coolightman.crypton.data.repository
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.LiveData
-import com.coolightman.crypton.model.data.CoinPriceInfo
-import com.coolightman.crypton.model.db.CryptoDatabase
-import com.coolightman.crypton.model.network.ApiClient
-import com.coolightman.crypton.view.activity.MainActivity.Companion.coinsNumber
+import com.coolightman.crypton.domain.entity.CoinPriceInfo
+import com.coolightman.crypton.data.db.CryptoDatabase
+import com.coolightman.crypton.data.network.ApiClient
+import com.coolightman.crypton.presentation.activity.MainActivity.Companion.coinsNumber
 import com.google.gson.Gson
 import com.google.gson.JsonObject
 import kotlinx.coroutines.*
@@ -18,7 +18,7 @@ class MainRepository(application: Application) {
 
     private val coroutineContextIO = Job() + Dispatchers.IO
     private val coroutineContextMain = Job() + Dispatchers.Main
-    private val scopeUI = CoroutineScope(coroutineContextIO)
+    private val scopeIO = CoroutineScope(coroutineContextIO)
     private val scopeMain = CoroutineScope(coroutineContextMain)
     private val handler = CoroutineExceptionHandler { _, throwable ->
         Log.e("CoroutineException", "throw $throwable")
@@ -56,7 +56,7 @@ class MainRepository(application: Application) {
     }
 
     private fun loadData() {
-        scopeUI.launch(handler) {
+        scopeIO.launch(handler) {
             repeat(REPEAT_NUMBER) {
                 try {
                     doLoad()

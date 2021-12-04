@@ -1,13 +1,11 @@
-package com.coolightman.crypton.model.db
+package com.coolightman.crypton.data.db
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import androidx.room.TypeConverters
-import com.coolightman.crypton.model.data.CoinInfo
-import com.coolightman.crypton.model.data.CoinPriceInfo
-import com.coolightman.crypton.model.db.dao.CoinPriceInfoDao
+import com.coolightman.crypton.domain.entity.CoinPriceInfo
+import com.coolightman.crypton.data.db.dao.CoinPriceInfoDao
 
 
 @Database(

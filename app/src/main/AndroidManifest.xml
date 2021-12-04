@@ -12,12 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Crypton">
         <activity
-            android:name=".view.activity.CoinDetailActivity"
+            android:name="com.coolightman.crypton.presentation.activity.CoinDetailActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".view.activity.MainActivity"
+            android:name="com.coolightman.crypton.presentation.activity.MainActivity"
             android:exported="true"
             android:screenOrientation="portrait"
             tools:ignore="LockedOrientationActivity">

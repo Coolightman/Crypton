@@ -1,8 +1,8 @@
-package com.coolightman.crypton.model.data
+package com.coolightman.crypton.domain.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.coolightman.crypton.model.network.ApiClient.LOGO_URL_ROOT
+import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
 import com.coolightman.crypton.utils.TimeConverter
 import com.google.gson.annotations.SerializedName
 
