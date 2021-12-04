@@ -9,7 +9,7 @@ import com.coolightman.crypton.data.database.model.CoinInfoDbModel
 
 
 @Database(
-    version = 8,
+    version = 9,
     entities = [CoinInfoDbModel::class]
 )
 abstract class CryptoDatabase : RoomDatabase() {

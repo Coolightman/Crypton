@@ -61,6 +61,21 @@
             app:layout_constraintTop_toTopOf="@+id/textViewFromSymbol"
             tools:text="500" />
 
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/textViewLastUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:textColor="@color/shadowed_text"
+            android:textSize="10sp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintStart_toStartOf="@+id/textViewCurrentPrice"
+            app:layout_constraintEnd_toEndOf="@+id/textViewCurrentPrice"
+            app:layout_constraintBottom_toBottomOf="@+id/ViewTopLine"
+            tools:ignore="SmallSp"
+            tools:text="Updated 19:54:05"
+            tools:textColor="@color/black" />
+
         <View
             android:id="@+id/ViewTopLine"
             android:layout_width="match_parent"

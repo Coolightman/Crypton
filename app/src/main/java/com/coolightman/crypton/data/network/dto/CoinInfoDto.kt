@@ -2,8 +2,6 @@ package com.coolightman.crypton.data.network.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
-import com.coolightman.crypton.utils.TimeConverter
 import com.google.gson.annotations.SerializedName
 
 @Entity
@@ -38,13 +36,4 @@ data class CoinInfoDto(
     @SerializedName("LASTVOLUMETO") var lastVolumeTo: Double?,
     @SerializedName("LASTMARKET") var lastMarket: String?,
     @SerializedName("IMAGEURL") var imageUrl: String?,
-) {
-
-    fun getFormattedTime(): String {
-        return TimeConverter.convertTimestampToTime(lastUpdate)
-    }
-
-    fun getImageFullUrl(): String {
-        return LOGO_URL_ROOT + imageUrl
-    }
-}
+)

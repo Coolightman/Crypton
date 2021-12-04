@@ -8,6 +8,7 @@ import com.coolightman.crypton.data.mapper.CoinMapper
 import com.coolightman.crypton.data.network.ApiClient
 import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.domain.repository.CoinRepository
+import com.coolightman.crypton.presentation.activity.MainActivity.Companion.NUMBER_OF_COINS
 import kotlinx.coroutines.delay
 
 class CoinRepositoryImpl(application: Application) : CoinRepository {
@@ -17,7 +18,6 @@ class CoinRepositoryImpl(application: Application) : CoinRepository {
     private val mapper = CoinMapper()
 
     companion object {
-        private const val NUMBER_OF_COINS = 30
         private const val LOAD_DELAY = 10 * 1000L
         private const val CURRENCY = "USD"
     }
@@ -36,12 +36,15 @@ class CoinRepositoryImpl(application: Application) : CoinRepository {
 
     override suspend fun loadData() {
         while (true) {
-            val topCoins = apiService.loadTopCoinNamesList(NUMBER_OF_COINS, CURRENCY)
-            val fromSymbols = mapper.mapNamesListToString(topCoins)
-            val jsonContainer = apiService.loadCoinInfoList(fromSymbols, CURRENCY)
-            val coinInfoDtoList = mapper.mapJsonContainerToListCoinInfo(jsonContainer)
-            val coinInfoDbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
-            coinInfoDao.insert(coinInfoDbModelList)
+            try {
+                val topCoins = apiService.loadTopCoinNamesList(NUMBER_OF_COINS, CURRENCY)
+                val fromSymbols = mapper.mapNamesListToString(topCoins)
+                val jsonContainer = apiService.loadCoinInfoList(fromSymbols, CURRENCY)
+                val coinInfoDtoList = mapper.mapJsonContainerToListCoinInfo(jsonContainer)
+                val coinInfoDbModelList = coinInfoDtoList.map { mapper.mapDtoToDbModel(it) }
+                coinInfoDao.insert(coinInfoDbModelList)
+            } catch (e: Exception) {
+            }
             delay(LOAD_DELAY)
         }
     }

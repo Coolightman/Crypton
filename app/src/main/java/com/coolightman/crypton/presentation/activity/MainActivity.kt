@@ -5,18 +5,18 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.coolightman.crypton.databinding.ActivityMainBinding
-import com.coolightman.crypton.data.network.dto.CoinInfoDto
-import com.coolightman.crypton.presentation.adapter.CoinPriceAdapter
+import com.coolightman.crypton.domain.entity.CoinInfo
+import com.coolightman.crypton.presentation.adapter.CoinInfoAdapter
 import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
     private lateinit var binding: ActivityMainBinding
-    private lateinit var coinPriceAdapter: CoinPriceAdapter
+    private lateinit var coinInfoAdapter: CoinInfoAdapter
 
     companion object {
-        const val NUMBER_OF_COINS = 25
+        const val NUMBER_OF_COINS = 30
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
         createObservers()
         createAdapter()
@@ -36,22 +36,22 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun observeCoinPriceInfoList() {
-        mainViewModel.getCoinPriceInfoList().observe(this) {
+        mainViewModel.coinInfoList.observe(this) {
             it?.let {
                 if (it.isNotEmpty()) {
                     val list = it.takeLast(NUMBER_OF_COINS)
-                    coinPriceAdapter.setPrices(list)
+                    coinInfoAdapter.setPrices(list)
                 }
             }
         }
     }
 
     private fun createAdapter() {
-        coinPriceAdapter = CoinPriceAdapter(this) { onClickCoin(it) }
-        binding.recyclerViewCoinPrice.adapter = coinPriceAdapter
+        coinInfoAdapter = CoinInfoAdapter(this) { onClickCoin(it) }
+        binding.recyclerViewCoinPrice.adapter = coinInfoAdapter
     }
 
-    private fun onClickCoin(coinDto: CoinInfoDto) {
+    private fun onClickCoin(coinDto: CoinInfo) {
         val intent = CoinDetailActivity.newIntent(this, coinDto.fromSymbol)
         startActivity(intent)
     }

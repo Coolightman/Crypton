@@ -7,32 +7,35 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
+import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
-import com.coolightman.crypton.data.network.dto.CoinInfoDto
+import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.utils.FormatValue
+import com.coolightman.crypton.utils.TimeConverter
 
-class CoinPriceAdapter(
+class CoinInfoAdapter(
     private val context: Context,
-    private val listener: (CoinInfoDto) -> Unit,
+    private val listener: (CoinInfo) -> Unit,
 ) :
-    RecyclerView.Adapter<CoinPriceAdapter.CoinPriceViewHolder>() {
+    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
 
-    private var coins = listOf<CoinInfoDto>()
+    private var coins = listOf<CoinInfo>()
 
-    inner class CoinPriceViewHolder(val binding: CoinPriceItemBinding) :
+    inner class CoinInfoViewHolder(val binding: CoinPriceItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinPriceViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = CoinPriceItemBinding
             .inflate(LayoutInflater.from(parent.context), parent, false)
-        return CoinPriceViewHolder(binding)
+        return CoinInfoViewHolder(binding)
     }
 
-    override fun onBindViewHolder(holder: CoinPriceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
         val coin = coins[position]
         val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
+        val formattedTime = TimeConverter.convertTimestampToTime(coin.lastUpdate)
         val lastUpdate =
-            "${context.resources.getString(R.string.last_update)} ${coin.getFormattedTime()}"
+            "${context.resources.getString(R.string.last_update)} $formattedTime"
 
         with(holder) {
             binding.textViewCoinPriceTitle.text = titleText
@@ -41,21 +44,21 @@ class CoinPriceAdapter(
             setPctDay(holder, coin.changePctDay)
 
             Glide.with(this.itemView.context)
-                .load(coin.getImageFullUrl())
+                .load(LOGO_URL_ROOT + coin.imageUrl)
                 .into(binding.imageViewCoinLogo)
 
             itemView.setOnClickListener { listener(coin) }
         }
     }
 
-    private fun setPrice(holder: CoinPriceViewHolder, price: Double?) {
+    private fun setPrice(holder: CoinInfoViewHolder, price: Double?) {
         price?.let {
             val currentPrice = FormatValue.roundValue(price)
             holder.binding.textViewPriceNow.text = currentPrice
         }
     }
 
-    private fun setPctDay(holder: CoinPriceViewHolder, changePctDay: Double?) {
+    private fun setPctDay(holder: CoinInfoViewHolder, changePctDay: Double?) {
         changePctDay?.let {
             val pair = FormatValue.formatPct(context, it)
             val pctForDay = pair.first
@@ -68,7 +71,7 @@ class CoinPriceAdapter(
     override fun getItemCount() = coins.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrices(coinDtos: List<CoinInfoDto>) {
+    fun setPrices(coinDtos: List<CoinInfo>) {
         this.coins = coinDtos
         notifyDataSetChanged()
     }

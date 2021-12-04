@@ -7,9 +7,12 @@ import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.coolightman.crypton.R
+import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
 import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
-import com.coolightman.crypton.utils.FormatValue
 import com.coolightman.crypton.presentation.viewmodel.MainViewModel
+import com.coolightman.crypton.utils.FormatValue
+import com.coolightman.crypton.utils.TimeConverter
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -18,6 +21,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     companion object {
         private const val EXTRA_COIN_NAME = "coinName"
+        private const val EMPTY_COIN_NAME = ""
 
         fun newIntent(context: Context, coinName: String): Intent {
             val intent = Intent(context, CoinDetailActivity::class.java)
@@ -31,24 +35,21 @@ class CoinDetailActivity : AppCompatActivity() {
         binding = ActivityCoinDetailBinding.inflate(layoutInflater)
         val view = binding.root
         setContentView(view)
-        mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        val coinName = intent.getStringExtra(EXTRA_COIN_NAME)
-
-        coinName?.let {
-            createObserver(it)
-        }
-
+        val coinName = intent.getStringExtra(EXTRA_COIN_NAME) ?: EMPTY_COIN_NAME
+        createObserver(coinName)
     }
 
     private fun createObserver(coinName: String) {
-        mainViewModel.getCoinPriceInfo(coinName).observe(this) {
+        mainViewModel.getCoinInfo(coinName).observe(this) {
             it?.let {
                 Log.e("coinInfo", it.toString())
-                setCoinLogo(it.getImageFullUrl())
+                setCoinLogo(it.imageUrl)
                 binding.textViewFromSymbol.text = it.fromSymbol
                 binding.textViewToSymbol.text = it.toSymbol
                 setCurrentPrice(it.price)
+                setUpdateTime(it.lastUpdate)
                 setHourChange(it.changeHour)
                 setHourChangePct(it.changePctHour)
                 setHourOpen(it.openHour)
@@ -219,6 +220,15 @@ class CoinDetailActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun setUpdateTime(lastUpdate: Int?) {
+        lastUpdate?.let {
+            val formattedTime = TimeConverter.convertTimestampToTime(it)
+            val text = "${application.resources.getString(R.string.last_update)} $formattedTime"
+            binding.textViewLastUpdate.text = text
+        }
+    }
+
     private fun setCurrentPrice(price: Double?) {
         price?.let {
             val currentPrice = FormatValue.roundValue(price)
@@ -264,9 +274,13 @@ class CoinDetailActivity : AppCompatActivity() {
         }
     }
 
-    private fun setCoinLogo(imageFullUrl: String) {
-        Glide.with(this)
-            .load(imageFullUrl)
-            .into(binding.imageViewCoinLogo)
+    private fun setCoinLogo(url: String?) {
+        url?.let {
+            val fullUrl = LOGO_URL_ROOT + it
+            Glide.with(this)
+                .load(fullUrl)
+                .into(binding.imageViewCoinLogo)
+        }
+
     }
 }
