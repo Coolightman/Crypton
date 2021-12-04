@@ -1,13 +1,13 @@
-package com.coolightman.crypton.presentation.activities
+package com.coolightman.crypton.presentation.activity
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.ViewModelProvider
 import com.coolightman.crypton.databinding.ActivityMainBinding
-import com.coolightman.crypton.data.models.CoinPriceInfo
-import com.coolightman.crypton.presentation.adapters.CoinPriceAdapter
-import com.coolightman.crypton.presentation.viewmodels.MainViewModel
+import com.coolightman.crypton.data.network.dto.CoinInfoDto
+import com.coolightman.crypton.presentation.adapter.CoinPriceAdapter
+import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
@@ -51,8 +51,8 @@ class MainActivity : AppCompatActivity() {
         binding.recyclerViewCoinPrice.adapter = coinPriceAdapter
     }
 
-    private fun onClickCoin(coin: CoinPriceInfo) {
-        val intent = CoinDetailActivity.newIntent(this, coin.fromSymbol)
+    private fun onClickCoin(coinDto: CoinInfoDto) {
+        val intent = CoinDetailActivity.newIntent(this, coinDto.fromSymbol)
         startActivity(intent)
     }
 }

@@ -1,4 +1,4 @@
-package com.coolightman.crypton.data.models
+package com.coolightman.crypton.data.network.dto
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -7,7 +7,7 @@ import com.coolightman.crypton.utils.TimeConverter
 import com.google.gson.annotations.SerializedName
 
 @Entity
-data class CoinPriceInfo(
+data class CoinInfoDto(
     @PrimaryKey
     @SerializedName("FROMSYMBOL") var fromSymbol: String,
     @SerializedName("TOSYMBOL") var toSymbol: String,

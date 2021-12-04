@@ -1,4 +1,4 @@
-package com.coolightman.crypton.presentation.activities
+package com.coolightman.crypton.presentation.activity
 
 import android.content.Context
 import android.content.Intent
@@ -9,7 +9,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
 import com.coolightman.crypton.utils.FormatValue
-import com.coolightman.crypton.presentation.viewmodels.MainViewModel
+import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 
 class CoinDetailActivity : AppCompatActivity() {
 

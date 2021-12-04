@@ -1,4 +1,4 @@
-package com.coolightman.crypton.domain.entities
+package com.coolightman.crypton.domain.entity
 
 data class CoinInfo(
     var fromSymbol: String,

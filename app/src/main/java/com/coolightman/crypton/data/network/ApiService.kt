@@ -1,8 +1,7 @@
 package com.coolightman.crypton.data.network
 
-import com.coolightman.crypton.data.models.CoinInfoList
-import com.coolightman.crypton.data.models.CoinPriceRawData
-import retrofit2.Response
+import com.coolightman.crypton.data.network.dto.CoinNamesListDto
+import com.coolightman.crypton.data.network.dto.CoinInfoJsonContainerDto
 import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.Query
@@ -22,17 +21,17 @@ interface ApiService {
 
     @Headers(HEADER_KEY)
     @GET("top/totalvolfull")
-    suspend fun loadCoinInfoListData(
+    suspend fun loadTopCoinNamesList(
         @Query(PARAM_LIMIT) limit: Int,
         @Query(PARAM_CURRENCY) currency: String
-    ): Response<CoinInfoList>
+    ): CoinNamesListDto
 
 
     @Headers(HEADER_KEY)
     @GET("pricemultifull")
-    suspend fun loadFullPriceList(
+    suspend fun loadCoinInfoList(
         @Query(PARAM_CRYPTOS) cryptos: String,
         @Query(PARAM_CURRENCIES) currencies: String
-    ): Response<CoinPriceRawData>
+    ): CoinInfoJsonContainerDto
 
 }

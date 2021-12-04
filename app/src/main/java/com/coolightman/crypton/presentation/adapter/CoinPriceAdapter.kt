@@ -1,4 +1,4 @@
-package com.coolightman.crypton.presentation.adapters
+package com.coolightman.crypton.presentation.adapter
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,16 +8,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
-import com.coolightman.crypton.data.models.CoinPriceInfo
+import com.coolightman.crypton.data.network.dto.CoinInfoDto
 import com.coolightman.crypton.utils.FormatValue
 
 class CoinPriceAdapter(
     private val context: Context,
-    private val listener: (CoinPriceInfo) -> Unit,
+    private val listener: (CoinInfoDto) -> Unit,
 ) :
     RecyclerView.Adapter<CoinPriceAdapter.CoinPriceViewHolder>() {
 
-    private var coins = listOf<CoinPriceInfo>()
+    private var coins = listOf<CoinInfoDto>()
 
     inner class CoinPriceViewHolder(val binding: CoinPriceItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -68,8 +68,8 @@ class CoinPriceAdapter(
     override fun getItemCount() = coins.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrices(coins: List<CoinPriceInfo>) {
-        this.coins = coins
+    fun setPrices(coinDtos: List<CoinInfoDto>) {
+        this.coins = coinDtos
         notifyDataSetChanged()
     }
 }
