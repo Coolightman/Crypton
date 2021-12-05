@@ -8,7 +8,6 @@ import com.coolightman.crypton.data.mapper.CoinMapper
 import com.coolightman.crypton.data.network.ApiClient
 import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.domain.repository.CoinRepository
-import com.coolightman.crypton.presentation.activity.MainActivity.Companion.NUMBER_OF_COINS
 import kotlinx.coroutines.delay
 
 class CoinRepositoryImpl(application: Application) : CoinRepository {
@@ -20,6 +19,7 @@ class CoinRepositoryImpl(application: Application) : CoinRepository {
     companion object {
         private const val LOAD_DELAY = 10 * 1000L
         private const val CURRENCY = "USD"
+        private const val NUMBER_OF_COINS = 30
     }
 
     override fun getCoinInfoList(): LiveData<List<CoinInfo>> {

@@ -9,7 +9,7 @@ import com.coolightman.crypton.domain.usecase.GetCoinInfoUseCase
 import com.coolightman.crypton.domain.usecase.LoadDataUseCase
 import kotlinx.coroutines.launch
 
-class MainViewModel(application: Application) : AndroidViewModel(application) {
+class CoinViewModel(application: Application) : AndroidViewModel(application) {
 
     private val repository = CoinRepositoryImpl(application)
     private val getCoinInfoListUseCase = GetCoinInfoListUseCase(repository)

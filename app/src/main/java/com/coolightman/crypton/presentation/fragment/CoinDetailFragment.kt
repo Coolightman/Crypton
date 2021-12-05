@@ -1,48 +1,67 @@
-package com.coolightman.crypton.presentation.activity
+package com.coolightman.crypton.presentation.fragment
 
-import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
-import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
-import com.coolightman.crypton.presentation.viewmodel.MainViewModel
+import com.coolightman.crypton.databinding.FragmentCoinDetailBinding
+import com.coolightman.crypton.presentation.viewmodel.CoinViewModel
 import com.coolightman.crypton.utils.FormatValue
 
-class CoinDetailActivity : AppCompatActivity() {
+class CoinDetailFragment : Fragment() {
 
-    private val mainViewModel by lazy {
-        ViewModelProvider(this)[MainViewModel::class.java]
-    }
+    private lateinit var viewModel: CoinViewModel
 
-    private val binding by lazy {
-        ActivityCoinDetailBinding.inflate(layoutInflater)
-    }
+    private var _binding: FragmentCoinDetailBinding? = null
+    private val binding: FragmentCoinDetailBinding
+        get() = _binding!!
 
     companion object {
         private const val EXTRA_COIN_NAME = "coinName"
         private const val EMPTY_COIN_NAME = ""
 
-        fun newIntent(context: Context, coinName: String): Intent {
-            val intent = Intent(context, CoinDetailActivity::class.java)
-            intent.putExtra(EXTRA_COIN_NAME, coinName)
-            return intent
+        fun newInstance(coinName: String): CoinDetailFragment {
+            return CoinDetailFragment().apply {
+                arguments = Bundle().apply {
+                    putString(EXTRA_COIN_NAME, coinName)
+                }
+            }
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentCoinDetailBinding.inflate(inflater, container, false)
+        return binding.root
+    }
 
-        val coinName = intent.getStringExtra(EXTRA_COIN_NAME) ?: EMPTY_COIN_NAME
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
+
+        val coinName = getCoinName()
         createObserver(coinName)
     }
 
+    private fun getCoinName(): String {
+        return requireArguments().getString(EXTRA_COIN_NAME, EMPTY_COIN_NAME)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        _binding = null
+    }
+
     private fun createObserver(coinName: String) {
-        mainViewModel.getCoinInfo(coinName).observe(this) {
+        viewModel.getCoinInfo(coinName).observe(viewLifecycleOwner) {
             it?.let {
                 Log.e("coinInfo", it.toString())
                 setCoinLogo(it.imageUrl)
@@ -146,7 +165,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun set24Change(change24Hour: Double?) {
         change24Hour?.let {
-            val pair = FormatValue.formatValueChange(this, it)
+            val pair = FormatValue.formatValueChange(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textView24Change.text = text
@@ -156,7 +175,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun set24ChangePct(changePct24Hour: Double?) {
         changePct24Hour?.let {
-            val pair = FormatValue.formatPct(this, it)
+            val pair = FormatValue.formatPct(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textView24ChangePct.text = text
@@ -184,7 +203,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setDayChange(changeDay: Double?) {
         changeDay?.let {
-            val pair = FormatValue.formatValueChange(this, it)
+            val pair = FormatValue.formatValueChange(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textViewDayChange.text = text
@@ -194,7 +213,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setDayChangePct(changePctDay: Double?) {
         changePctDay?.let {
-            val pair = FormatValue.formatPct(this, it)
+            val pair = FormatValue.formatPct(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textViewDayChangePct.text = text
@@ -222,7 +241,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setUpdateTime(lastUpdate: String?) {
         lastUpdate?.let {
-            val text = "${application.resources.getString(R.string.last_update)} $lastUpdate"
+            val text = "${requireActivity().resources.getString(R.string.last_update)} $lastUpdate"
             binding.textViewLastUpdate.text = text
         }
     }
@@ -254,7 +273,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setHourChange(changeHour: Double?) {
         changeHour?.let {
-            val pair = FormatValue.formatValueChange(this, it)
+            val pair = FormatValue.formatValueChange(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textViewHourChange.text = text
@@ -264,7 +283,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setHourChangePct(changePctHour: Double?) {
         changePctHour?.let {
-            val pair = FormatValue.formatPct(this, it)
+            val pair = FormatValue.formatPct(requireContext(), it)
             val text = pair.first
             val color = pair.second
             binding.textViewHourChangePct.text = text
@@ -274,7 +293,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setCoinLogo(url: String?) {
         url?.let {
-            Glide.with(this)
+            Glide.with(requireContext())
                 .load(url)
                 .into(binding.imageViewCoinLogo)
         }
