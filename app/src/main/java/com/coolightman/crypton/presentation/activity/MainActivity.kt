@@ -42,8 +42,8 @@ class MainActivity : AppCompatActivity() {
         mainViewModel.coinInfoList.observe(this) {
             it?.let {
                 if (it.isNotEmpty()) {
-                    val list = it.takeLast(NUMBER_OF_COINS)
-                    coinInfoAdapter.setPrices(list)
+                    val coins = it.takeLast(NUMBER_OF_COINS)
+                    coinInfoAdapter.setPrices(coins)
                 }
             }
         }

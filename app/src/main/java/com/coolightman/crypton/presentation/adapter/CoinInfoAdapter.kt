@@ -35,17 +35,17 @@ class CoinInfoAdapter(
         val lastUpdate =
             "${context.resources.getString(R.string.last_update)} $formattedTime"
 
-        with(holder) {
-            binding.textViewCoinPriceTitle.text = titleText
+        with(holder.binding) {
+            textViewCoinPriceTitle.text = titleText
             setPrice(holder, coin.price)
-            binding.textViewLastUpdate.text = lastUpdate
+            textViewLastUpdate.text = lastUpdate
             setPctDay(holder, coin.changePctDay)
 
-            Glide.with(this.itemView.context)
+            Glide.with(root.context)
                 .load(coin.imageUrl)
-                .into(binding.imageViewCoinLogo)
+                .into(imageViewCoinLogo)
 
-            itemView.setOnClickListener { listener(coin) }
+            root.setOnClickListener { listener(coin) }
         }
     }
 
@@ -69,8 +69,8 @@ class CoinInfoAdapter(
     override fun getItemCount() = coins.size
 
     @SuppressLint("NotifyDataSetChanged")
-    fun setPrices(coinDtos: List<CoinInfo>) {
-        this.coins = coinDtos
+    fun setPrices(coins: List<CoinInfo>) {
+        this.coins = coins
         notifyDataSetChanged()
     }
 }
