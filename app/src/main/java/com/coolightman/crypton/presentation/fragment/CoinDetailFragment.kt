@@ -15,7 +15,9 @@ import com.coolightman.crypton.utils.FormatValue
 
 class CoinDetailFragment : Fragment() {
 
-    private lateinit var viewModel: CoinViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this)[CoinViewModel::class.java]
+    }
 
     private var _binding: FragmentCoinDetailBinding? = null
     private val binding: FragmentCoinDetailBinding
@@ -45,7 +47,6 @@ class CoinDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
 
         val coinName = getCoinName()
         createObserver(coinName)

@@ -14,7 +14,9 @@ import com.coolightman.crypton.presentation.viewmodel.CoinViewModel
 
 class CoinsFragment : Fragment() {
 
-    private lateinit var viewModel: CoinViewModel
+    private val viewModel by lazy {
+        ViewModelProvider(this)[CoinViewModel::class.java]
+    }
 
     private var _binding: FragmentCoinsBinding? = null
     private val binding: FragmentCoinsBinding
@@ -37,8 +39,6 @@ class CoinsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = ViewModelProvider(this)[CoinViewModel::class.java]
-
         createObserverForCoins()
         createAdapterForCoins()
     }
@@ -69,8 +69,8 @@ class CoinsFragment : Fragment() {
         val fragment = CoinDetailFragment.newInstance(coinInfo.fromSymbol)
         parentFragmentManager
             .beginTransaction()
-            .addToBackStack(null)
             .replace(R.id.main_container, fragment)
+            .addToBackStack(null)
             .commit()
     }
 }
