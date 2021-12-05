@@ -1,6 +1,5 @@
 package com.coolightman.crypton.presentation.adapter
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -14,13 +13,13 @@ import com.coolightman.crypton.utils.FormatValue
 class CoinInfoAdapter(
     private val context: Context,
     private val listener: (CoinInfo) -> Unit,
-) :
-    RecyclerView.Adapter<CoinInfoAdapter.CoinInfoViewHolder>() {
+) : RecyclerView.Adapter<CoinInfoViewHolder>() {
 
-    private var coins = listOf<CoinInfo>()
-
-    inner class CoinInfoViewHolder(val binding: CoinPriceItemBinding) :
-        RecyclerView.ViewHolder(binding.root)
+    var coins = listOf<CoinInfo>()
+        set(value) {
+            field = value
+            notifyDataSetChanged()
+        }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = CoinPriceItemBinding
@@ -67,10 +66,4 @@ class CoinInfoAdapter(
     }
 
     override fun getItemCount() = coins.size
-
-    @SuppressLint("NotifyDataSetChanged")
-    fun setPrices(coins: List<CoinInfo>) {
-        this.coins = coins
-        notifyDataSetChanged()
-    }
 }
