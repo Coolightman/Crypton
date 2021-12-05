@@ -8,11 +8,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
-import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
 import com.coolightman.crypton.databinding.ActivityCoinDetailBinding
 import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 import com.coolightman.crypton.utils.FormatValue
-import com.coolightman.crypton.utils.TimeConverter
 
 class CoinDetailActivity : AppCompatActivity() {
 
@@ -220,11 +218,9 @@ class CoinDetailActivity : AppCompatActivity() {
         }
     }
 
-
-    private fun setUpdateTime(lastUpdate: Int?) {
+    private fun setUpdateTime(lastUpdate: String?) {
         lastUpdate?.let {
-            val formattedTime = TimeConverter.convertTimestampToTime(it)
-            val text = "${application.resources.getString(R.string.last_update)} $formattedTime"
+            val text = "${application.resources.getString(R.string.last_update)} $lastUpdate"
             binding.textViewLastUpdate.text = text
         }
     }
@@ -276,11 +272,9 @@ class CoinDetailActivity : AppCompatActivity() {
 
     private fun setCoinLogo(url: String?) {
         url?.let {
-            val fullUrl = LOGO_URL_ROOT + it
             Glide.with(this)
-                .load(fullUrl)
+                .load(url)
                 .into(binding.imageViewCoinLogo)
         }
-
     }
 }

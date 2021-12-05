@@ -7,11 +7,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
-import com.coolightman.crypton.data.network.ApiClient.LOGO_URL_ROOT
 import com.coolightman.crypton.databinding.CoinPriceItemBinding
 import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.utils.FormatValue
-import com.coolightman.crypton.utils.TimeConverter
 
 class CoinInfoAdapter(
     private val context: Context,
@@ -33,7 +31,7 @@ class CoinInfoAdapter(
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
         val coin = coins[position]
         val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
-        val formattedTime = TimeConverter.convertTimestampToTime(coin.lastUpdate)
+        val formattedTime = coin.lastUpdate
         val lastUpdate =
             "${context.resources.getString(R.string.last_update)} $formattedTime"
 
@@ -44,7 +42,7 @@ class CoinInfoAdapter(
             setPctDay(holder, coin.changePctDay)
 
             Glide.with(this.itemView.context)
-                .load(LOGO_URL_ROOT + coin.imageUrl)
+                .load(coin.imageUrl)
                 .into(binding.imageViewCoinLogo)
 
             itemView.setOnClickListener { listener(coin) }

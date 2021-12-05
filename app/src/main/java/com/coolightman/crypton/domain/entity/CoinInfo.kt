@@ -4,7 +4,7 @@ data class CoinInfo(
     var fromSymbol: String,
     var toSymbol: String,
     var price: Double?,
-    var lastUpdate: Int?,
+    var lastUpdate: String?,
     var changeHour: Double?,
     var changePctHour: Double?,
     var openHour: Double?,

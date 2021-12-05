@@ -5,9 +5,14 @@ import com.coolightman.crypton.data.network.dto.CoinInfoDto
 import com.coolightman.crypton.data.network.dto.CoinInfoJsonContainerDto
 import com.coolightman.crypton.data.network.dto.CoinNamesListDto
 import com.coolightman.crypton.domain.entity.CoinInfo
+import com.coolightman.crypton.utils.TimeConverter
 import com.google.gson.Gson
 
 class CoinMapper {
+
+    companion object {
+        const val LOGO_URL_ROOT = "https://www.cryptocompare.com"
+    }
 
     fun mapDtoToDbModel(dto: CoinInfoDto) = CoinInfoDbModel(
         fromSymbol = dto.fromSymbol,
@@ -38,7 +43,7 @@ class CoinMapper {
         lastVolume = dto.lastVolume,
         lastVolumeTo = dto.lastVolumeTo,
         lastMarket = dto.lastMarket,
-        imageUrl = dto.imageUrl
+        imageUrl = LOGO_URL_ROOT + dto.imageUrl
     )
 
     fun mapJsonContainerToListCoinInfo(jsonContainer: CoinInfoJsonContainerDto): List<CoinInfoDto> {
@@ -66,7 +71,7 @@ class CoinMapper {
             fromSymbol = dbModel.fromSymbol,
             toSymbol = dbModel.toSymbol,
             price = dbModel.price,
-            lastUpdate = dbModel.lastUpdate,
+            lastUpdate = TimeConverter.convertTimestampToTime(dbModel.lastUpdate),
             changeHour = dbModel.changeHour,
             changePctHour = dbModel.changePctHour,
             openHour = dbModel.openHour,

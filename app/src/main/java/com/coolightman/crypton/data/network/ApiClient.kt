@@ -6,7 +6,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 object ApiClient {
     private var retrofit: Retrofit? = null
     private const val API_URL = "https://min-api.cryptocompare.com/data/"
-    const val LOGO_URL_ROOT = "https://www.cryptocompare.com"
     private val LOCK = Any()
 
     private fun getClient(): Retrofit {
