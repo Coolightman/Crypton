@@ -11,8 +11,14 @@ import com.coolightman.crypton.presentation.viewmodel.MainViewModel
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var binding: ActivityMainBinding
+    private val mainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+    private val binding by lazy {
+        ActivityMainBinding.inflate(layoutInflater)
+    }
+
     private lateinit var coinInfoAdapter: CoinInfoAdapter
 
     companion object {
@@ -22,10 +28,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-        binding = ActivityMainBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        setContentView(binding.root)
 
         createObservers()
         createAdapter()

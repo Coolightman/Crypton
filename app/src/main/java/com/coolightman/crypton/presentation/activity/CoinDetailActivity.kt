@@ -14,8 +14,13 @@ import com.coolightman.crypton.utils.FormatValue
 
 class CoinDetailActivity : AppCompatActivity() {
 
-    private lateinit var mainViewModel: MainViewModel
-    private lateinit var binding: ActivityCoinDetailBinding
+    private val mainViewModel by lazy {
+        ViewModelProvider(this)[MainViewModel::class.java]
+    }
+
+    private val binding by lazy {
+        ActivityCoinDetailBinding.inflate(layoutInflater)
+    }
 
     companion object {
         private const val EXTRA_COIN_NAME = "coinName"
@@ -30,10 +35,7 @@ class CoinDetailActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityCoinDetailBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
-        mainViewModel = ViewModelProvider(this)[MainViewModel::class.java]
+        setContentView(binding.root)
 
         val coinName = intent.getStringExtra(EXTRA_COIN_NAME) ?: EMPTY_COIN_NAME
         createObserver(coinName)
