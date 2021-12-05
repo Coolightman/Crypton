@@ -52,6 +52,7 @@ class MainActivity : AppCompatActivity() {
     private fun createAdapter() {
         coinInfoAdapter = CoinInfoAdapter(this) { onClickCoin(it) }
         binding.recyclerViewCoinPrice.adapter = coinInfoAdapter
+        binding.recyclerViewCoinPrice.itemAnimator = null
     }
 
     private fun onClickCoin(coinDto: CoinInfo) {
