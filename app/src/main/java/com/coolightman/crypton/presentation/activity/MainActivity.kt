@@ -43,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             it?.let {
                 if (it.isNotEmpty()) {
                     val coins = it.takeLast(NUMBER_OF_COINS)
-                    coinInfoAdapter.coins = coins
+                    coinInfoAdapter.submitList(coins)
                 }
             }
         }

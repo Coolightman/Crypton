@@ -3,6 +3,7 @@ package com.coolightman.crypton.presentation.adapter
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.coolightman.crypton.R
@@ -13,13 +14,7 @@ import com.coolightman.crypton.utils.FormatValue
 class CoinInfoAdapter(
     private val context: Context,
     private val listener: (CoinInfo) -> Unit,
-) : RecyclerView.Adapter<CoinInfoViewHolder>() {
-
-    var coins = listOf<CoinInfo>()
-        set(value) {
-            field = value
-            notifyDataSetChanged()
-        }
+) : ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {
         val binding = CoinPriceItemBinding
@@ -28,7 +23,7 @@ class CoinInfoAdapter(
     }
 
     override fun onBindViewHolder(holder: CoinInfoViewHolder, position: Int) {
-        val coin = coins[position]
+        val coin = getItem(position)
         val titleText = "${coin.fromSymbol} / ${coin.toSymbol}"
         val formattedTime = coin.lastUpdate
         val lastUpdate =
@@ -64,6 +59,4 @@ class CoinInfoAdapter(
             holder.binding.textViewChangePctDay.setTextColor(color)
         }
     }
-
-    override fun getItemCount() = coins.size
 }
