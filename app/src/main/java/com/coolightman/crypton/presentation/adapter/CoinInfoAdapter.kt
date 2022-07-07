@@ -13,7 +13,7 @@ import com.coolightman.crypton.utils.FormatValue
 
 class CoinInfoAdapter(
     private val context: Context,
-    private val listener: (CoinInfo) -> Unit,
+    private val listener: (CoinInfo) -> Unit
 ) : ListAdapter<CoinInfo, CoinInfoViewHolder>(CoinInfoDiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CoinInfoViewHolder {

@@ -1,21 +1,32 @@
 package com.coolightman.crypton.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.coolightman.crypton.CryptoApp
 import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.FragmentCoinsBinding
 import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.presentation.adapter.CoinInfoAdapter
 import com.coolightman.crypton.presentation.viewmodel.CoinViewModel
+import com.coolightman.crypton.presentation.viewmodel.ViewModelFactory
+import javax.inject.Inject
 
 class CoinsFragment : Fragment() {
 
+    private val component by lazy {
+        (requireActivity().application as CryptoApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by lazy {
-        ViewModelProvider(this)[CoinViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
 
     private var _binding: FragmentCoinsBinding? = null
@@ -26,6 +37,11 @@ class CoinsFragment : Fragment() {
 
     companion object {
         const val NUMBER_OF_COINS = 30
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

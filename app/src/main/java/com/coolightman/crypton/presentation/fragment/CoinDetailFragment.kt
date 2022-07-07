@@ -1,5 +1,6 @@
 package com.coolightman.crypton.presentation.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -8,15 +9,25 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.bumptech.glide.Glide
+import com.coolightman.crypton.CryptoApp
 import com.coolightman.crypton.R
 import com.coolightman.crypton.databinding.FragmentCoinDetailBinding
 import com.coolightman.crypton.presentation.viewmodel.CoinViewModel
+import com.coolightman.crypton.presentation.viewmodel.ViewModelFactory
 import com.coolightman.crypton.utils.FormatValue
+import javax.inject.Inject
 
 class CoinDetailFragment : Fragment() {
 
+    private val component by lazy {
+        (requireActivity().application as CryptoApp).component
+    }
+
+    @Inject
+    lateinit var viewModelFactory: ViewModelFactory
+
     private val viewModel by lazy {
-        ViewModelProvider(this)[CoinViewModel::class.java]
+        ViewModelProvider(this, viewModelFactory)[CoinViewModel::class.java]
     }
 
     private var _binding: FragmentCoinDetailBinding? = null
@@ -34,6 +45,11 @@ class CoinDetailFragment : Fragment() {
                 }
             }
         }
+    }
+
+    override fun onAttach(context: Context) {
+        component.inject(this)
+        super.onAttach(context)
     }
 
     override fun onCreateView(

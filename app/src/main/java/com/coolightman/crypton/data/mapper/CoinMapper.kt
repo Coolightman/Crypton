@@ -7,8 +7,9 @@ import com.coolightman.crypton.data.network.dto.CoinNamesListDto
 import com.coolightman.crypton.domain.entity.CoinInfo
 import com.coolightman.crypton.utils.TimeConverter
 import com.google.gson.Gson
+import javax.inject.Inject
 
-class CoinMapper {
+class CoinMapper @Inject constructor() {
 
     companion object {
         const val LOGO_URL_ROOT = "https://www.cryptocompare.com"

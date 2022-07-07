@@ -20,7 +20,7 @@ object ApiClient {
         }
     }
 
-    fun getService(): ApiService {
+    fun getApiService(): ApiService {
         return getClient().create(ApiService::class.java)
     }
 }
